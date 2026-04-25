@@ -17,10 +17,11 @@ function App() {
     <ThemeProvider>
         <Routes>
         <Route element={<AuthLayout />}>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
+
 
         </Route>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
         <Route element={<DashboardLayout/>}>
           <Route path="/" element={<Dashboard />} />
 
