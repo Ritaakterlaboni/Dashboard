@@ -12,7 +12,10 @@ import { Toaster } from 'react-hot-toast'
 import Orders from './components/pages/Orders'
 import Settings from './components/pages/Settings'
 import Category from './components/pages/Category'
-import Profile from './components/pages/Profile'
+import Userlist from './components/pages/Userlist'
+import CategoryList from './components/pages/CategoryList'
+import ProductList from './components/pages/Productlist'
+
 
 
 function App() {
@@ -31,9 +34,11 @@ function App() {
           <Route element={<DashboardLayout />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/category" element={<Category />} />
+            <Route path="/categorylist" element={<CategoryList />} />
             <Route path="/product" element={<Products />} />
+            <Route path="/productlist" element={<ProductList />} />
             <Route path="/orders" element={<Orders />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/users" element={<Userlist />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
         </Routes>
