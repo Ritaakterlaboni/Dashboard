@@ -7,6 +7,7 @@ import Login from './components/pages/Login'
 import Dashboard from './components/pages/Dashboard'
 import DashboardLayout from './components/layouts/DashboardLayout'
 import { ThemeProvider } from '@material-tailwind/react'
+import Product from './components/pages/Product'
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
         </Route>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/product" element={<Product />} />
+
         <Route element={<DashboardLayout/>}>
           <Route path="/" element={<Dashboard />} />
 
