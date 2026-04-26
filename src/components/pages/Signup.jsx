@@ -18,12 +18,12 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const [signupInput, setSignupInput] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: ""
   });
 
-  // input change handle
   const handleInputChange = (e) => {
     setSignupInput({
       ...signupInput,
@@ -31,10 +31,9 @@ const Signup = () => {
     });
   };
 
-  // signup button
   const handleSignupBtn = async () => {
     try {
-      const res = await axios.post(
+      await axios.post(
         "http://localhost:3000/api/auth/signup",
         signupInput,
         { withCredentials: true }
@@ -43,7 +42,7 @@ const Signup = () => {
       toast.success("Signup successful 🎉");
 
       setTimeout(() => {
-        navigate("/login"); // signup er por login page a jabe
+        navigate("/login");
       }, 2000);
 
     } catch (error) {
@@ -58,33 +57,40 @@ const Signup = () => {
 
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">
-            Sign Up
+            Create Your Account
           </CardTitle>
+          <p className="text-sm text-gray-500 mt-1 text-center leading-5">
+            Fill your information bellow or register <br />
+            with your account.
+          </p>
         </CardHeader>
 
         <CardContent>
           <form className="space-y-5">
 
-            {/* Name */}
-            <div>
-              <Label>First Name</Label>
-              <Input
-                name="name"
-                type="text"
-                placeholder="Your First Name"
-                className="mt-1"
-                onChange={handleInputChange}
-              />
-            </div>
-             <div>
-              <Label>Last Name</Label>
-              <Input
-                name="name"
-                type="text"
-                placeholder="Your Last Name"
-                className="mt-1"
-                onChange={handleInputChange}
-              />
+            {/* First + Last Name */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Label>First Name</Label>
+                <Input
+                  name="firstName"
+                  type="text"
+                  placeholder="First Name"
+                  className="mt-1"
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div>
+                <Label>Last Name</Label>
+                <Input
+                  name="lastName"
+                  type="text"
+                  placeholder="Last Name"
+                  className="mt-1"
+                  onChange={handleInputChange}
+                />
+              </div>
             </div>
 
             {/* Email */}

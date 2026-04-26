@@ -105,7 +105,9 @@ const Login = () => {
 
           <p className="text-sm text-center text-gray-500">
             Don’t have an account?{" "}
-            <span className="text-indigo-600 cursor-pointer hover:underline">
+            <span
+             onClick={() => navigate("/signup")}
+             className="text-indigo-600 cursor-pointer hover:underline">
               Sign up
             </span>
           </p>
