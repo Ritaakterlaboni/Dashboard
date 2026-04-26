@@ -7,7 +7,8 @@ import Login from './components/pages/Login'
 import Dashboard from './components/pages/Dashboard'
 import DashboardLayout from './components/layouts/DashboardLayout'
 import { ThemeProvider } from '@material-tailwind/react'
-import Product from './components/pages/Product'
+import Products from './components/pages/Products'
+import { Toaster } from 'react-hot-toast'
 
 
 function App() {
@@ -15,23 +16,22 @@ function App() {
 
   return (
     <>
-    <ThemeProvider>
+      <Toaster />
+      <ThemeProvider>
         <Routes>
-        <Route element={<AuthLayout />}>
+          <Route element={<AuthLayout />}>
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
 
+          <Route element={<DashboardLayout />}>
+            <Route path="/product" element={<Products />} />
+            <Route path="/" element={<Dashboard />} />
 
-        </Route>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/product" element={<Product />} />
+          </Route>
+        </Routes>
+      </ThemeProvider>
 
-        <Route element={<DashboardLayout/>}>
-          <Route path="/" element={<Dashboard />} />
-
-        </Route>
-      </Routes>
-    </ThemeProvider>
-    
     </>
   )
 }
