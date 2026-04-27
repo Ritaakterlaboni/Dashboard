@@ -78,7 +78,7 @@ const ProductList = () => {
                 </td>
 
                 {/* PRICE */}
-                <td className="p-3 text-indigo-600 font-semibold">
+                <td className="p-3 text-gray-500 font-semibold">
                   {item.price}
                 </td>
 

@@ -14,12 +14,15 @@ import {
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
+
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const [catOpen, setCatOpen] = useState(false);
   const [prodOpen, setProdOpen] = useState(false);
+
+
 
   const active = (path) => location.pathname === path;
 
