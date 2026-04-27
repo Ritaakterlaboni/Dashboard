@@ -32,7 +32,7 @@ const ProductList = () => {
   };
 
   return (
-    <div className="p-6 space-y-6 md:max-w-1/3">
+    <div className="p-6 space-y-6">
 
       {/* TITLE */}
       <h1 className="text-2xl font-bold text-gray-700">
