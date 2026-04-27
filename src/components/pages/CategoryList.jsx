@@ -3,17 +3,17 @@ import { Edit, Trash2 } from "lucide-react";
 import axios from "axios";
 
 const CategoryList = () => {
-  const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/category/getcategory")
       .then((res) => {
-        setProducts(res.data.data);
+        setCategory(res.data.data);
       });
   }, []);
 
   const deleteProduct = (id) => {
-    setProducts(products.filter((item) => item._id !== id));
+    setCategory(category.filter((item) => item._id !== id));
   };
 
   const editProduct = (id) => {
@@ -48,19 +48,19 @@ const CategoryList = () => {
             {/* BODY */}
             <tbody>
 
-              {products.map((item, index) => (
+              {category.map((item, index) => (
                 <tr
                   key={item._id}
                   className="border-b hover:bg-gray-50 transition"
                 >
 
                   {/* SERIAL */}
-                  <td className="p-4 py-3 px-6 text-gray-600">
+                  <td className="p-4 py-2 px-6 text-gray-600">
                     {index + 1}
                   </td>
 
                   {/* NAME */}
-                  <td className="p-4 py-3 px-6 font-semibold text-gray-800">
+                  <td className="p-4 py-2 px-6 font-semibold text-gray-800">
                     {item.name}
                   </td>
 
@@ -70,7 +70,7 @@ const CategoryList = () => {
                   </td>
 
                   {/* ACTION */}
-                  <td className="p-4 py-3 px-6">
+                  <td className="p-4 py-2 px-6">
 
                     <div className="flex justify-center gap-3">
 

@@ -1,27 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Edit, Trash2 } from "lucide-react";
+import axios from "axios";
 
 const ProductList = () => {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: "iPhone 14",
-      description: "Latest Apple smartphone",
-      price: "$999",
-    },
-    {
-      id: 2,
-      name: "Headphone",
-      description: "Noise cancelling headset",
-      price: "$120",
-    },
-    {
-      id: 3,
-      name: "Smart Watch",
-      description: "Fitness tracking watch",
-      price: "$199",
-    },
-  ]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/product/getproduct")
+      .then((res) => {
+        setProducts(res.data.data);
+      });
+  }, []);
 
   const deleteProduct = (id) => {
     setProducts(products.filter((item) => item.id !== id));
