@@ -1,35 +1,39 @@
 import React, { useState } from "react";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Category = () => {
-  const [categories, setCategories] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
+  const [categoryDescription, setCategoryDescription] =useState("")
 
-  const [form, setForm] = useState({
-    name: "",
-    description: "",
-  });
+const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+const formData ={
+  name: categoryName,
+  description: categoryDescription
+}
 
-  const addCategory = () => {
-    if (!form.name) return;
+const handleCategoryBtn = async()=>{
+  try {
+    await axios.post ("http://localhost:3000/api/category/createcategory", formData);
+    toast.success("Successfully added!");
 
-    setCategories([...categories, form]);
-
-    setForm({
-      name: "",
-      description: "",
-    });
-  };
-
-  const deleteCategory = (index) => {
-    const updated = categories.filter((_, i) => i !== index);
-    setCategories(updated);
-  };
+    //input field clear ar jonno
+    setCategoryName("");
+    setCategoryDescription("");
+    setTimeout(() => {
+      navigate("/categorylist");
+    }, 1000);
+  } catch (error) {
+    toast.error("Something went wrong!");
+  }
+  
+}
 
   return (
     <div className="p-6 space-y-6">
@@ -48,36 +52,41 @@ const Category = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-          <input
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            placeholder="Category Name"
-            className="border p-2 rounded-lg outline-none"
-          />
+          <FieldGroup>
+          <Field>
+            <FieldLabel>Category Name</FieldLabel>
+            <Input
+              value={categoryName}
+              placeholder="Category Name"
+              className={"text-sm"}
+              onChange={(e) => setCategoryName(e.target.value)}
+            />
+          </Field>
 
-          <input
-            type="text"
-            name="description"
-            value={form.description}
-            onChange={handleChange}
-            placeholder="Description"
-            className="border p-2 rounded-lg outline-none"
-          />
-
+           <Field>
+            <FieldLabel>Category Description</FieldLabel>
+            <Textarea
+              value={categoryDescription}
+              placeholder="Type your description here..."
+              className={"resize-none text-sm"}
+              onChange={(e) => setCategoryDescription(e.target.value)}
+            />
+          </Field>
+          <Field orientation="horizontal">
+              <Button className={"bg-indigo-600"}
+              onClick ={handleCategoryBtn}
+              >
+                Add Category
+              </Button>
+            </Field>
+          </FieldGroup>
         </div>
 
-        <button
-          onClick={addCategory}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
-        >
-          Add Category
-        </button>
+        
       </div>
 
       {/* CATEGORY LIST */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
         {categories.map((item, index) => (
           <div
@@ -105,7 +114,7 @@ const Category = () => {
           </div>
         ))}
 
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,0 +1,21 @@
+#1. frontend thake backend a data pathanor
+ ==================================
+
+ Form Input (user type করে)
+        ↓
+React State (categoryName, categoryDescription)
+        ↓
+formData object তৈরি হয়
+        ↓
+axios.post() দিয়ে backend-এ যায়
+        ↓
+Backend (req.body এ পায়)
+        ↓
+Database (save হয়)
+
+
+#2.databse a data pathaite kisu jinis lage jemon backend a ===>
+        index.jsx ==> 
+                npm install cors
+                const cors= require('cors');
+                app.use(cors())
