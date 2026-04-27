@@ -14,7 +14,7 @@ import Settings from './components/pages/Settings'
 import Category from './components/pages/Category'
 import Userlist from './components/pages/Userlist'
 import CategoryList from './components/pages/CategoryList'
-import ProductList from './components/pages/Productlist'
+import ProductList from './components/pages/ProductList'
 
 
 
