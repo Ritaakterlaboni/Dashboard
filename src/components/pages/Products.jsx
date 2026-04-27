@@ -1,140 +1,147 @@
 import React, { useState } from "react";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 const Product = () => {
-  const [products, setProducts] = useState([]);
+  const [productName, setProductName] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const[category, setCategory] = useState("")
+  const[price, setPrice] = useState("")
+  const[size, setSize] = useState("")
+  const[color, setColor] = useState("")
+  const[ram, setRam] = useState("")
+  const[storage, setStorage] = useState("")
+  const[image, setImage] = useState("")
 
-  const [form, setForm] = useState({
-    name: "",
-    price: "",
-    description: "",
-    image: "",
-  });
+  const [getCategory, setGetCategory] = useState([]);
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
 
-  const handleAddProduct = () => {
-    if (!form.name || !form.price) return;
-
-    setProducts([...products, form]);
-
-    setForm({
-      name: "",
-      price: "",
-      description: "",
-      image: "",
-    });
+  const handleCreateProduct = () => {
+    console.log("Product Added");
   };
 
   return (
     <div className="p-6 space-y-6">
 
-      {/* Title */}
       <h1 className="text-2xl font-bold text-gray-700">
         Product Management
       </h1>
 
-      {/* Add Product Form */}
       <div className="bg-white border shadow-sm rounded-2xl p-5 space-y-4">
 
         <h2 className="font-semibold text-lg">
           Add New Product
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="md:max-w-1/3 mt-4">
 
-          <input
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            placeholder="Product Name"
-            className="border p-2 rounded-lg outline-none"
-          />
+          <FieldGroup>
+            {/* product Name */}
+            <Field>
+              <FieldLabel>Product Name</FieldLabel>
+              <Input placeholder="Product Name" className="text-sm" 
+              value={productName}   //useState ar productName
+              onChange={(e) => setProductName(e.target.value)}
+              />
+            </Field>
+            {/* product  Description*/}
+            <Field>
+              <FieldLabel>Product Description</FieldLabel>
+              <Textarea
+                placeholder="Type your description "
+                className="resize-none text-sm"
+                value={productDescription}
+                onChange={(e) => setProductDescription(e.target.value)}
+              />
+            </Field>
+             {/* Category*/}
+                <Field>
+            <FieldLabel>Category</FieldLabel>
+            <select
+              className="border border-gray-200 rounded-sm p-2"
+              onChange={(e) => setSelectedCategory(e.target.value)}>
+              {getCategory.map((item) => (
+                <option
+                  className={"dark:bg-blue-900"}
+                  key={item._id}
+                  value={item._id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </Field>
+            {/* Price*/}
+            <Field>
+              <FieldLabel>Price</FieldLabel>
+              <Input
+                placeholder="Price "
+                className=" text-sm"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </Field>
+             {/* Size*/}
+            <Field>
+              <FieldLabel>Size</FieldLabel>
+              <Input
+                placeholder="Size "
+                className=" text-sm"
+                value={size}
+                onChange={(e) => setSize(e.target.value)}
+              />
+            </Field>
+             {/* Color*/}
+            <Field>
+              <FieldLabel>Color</FieldLabel>
+              <Input
+                placeholder="Color "
+                className=" text-sm"
+                value={color}
+                onChange={(e) => setColor(e.target.value)}
+              />
+            </Field>
+             {/* Ram*/}
+            <Field>
+              <FieldLabel>Ram</FieldLabel>
+              <Input
+                placeholder="Ram "
+                className=" text-sm"
+                value={ram}
+                onChange={(e) => setRam(e.target.value)}
+              />
+            </Field>
+               {/* Storage*/}
+            <Field>
+              <FieldLabel>Storage</FieldLabel>
+              <Input
+                placeholder="Storage "
+                className=" text-sm"
+                value={storage}
+                onChange={(e) => setStorage(e.target.value)}
+              />
+            </Field>
+            {/* product  Image*/}
 
-          <input
-            type="text"
-            name="price"
-            value={form.price}
-            onChange={handleChange}
-            placeholder="Price"
-            className="border p-2 rounded-lg outline-none"
-          />
+            <Field>
+            <FieldLabel>Product Image</FieldLabel>
+            <Input
+              type={"file"}
+              placeholder="Product Image"
+              className={"text-sm"}
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+          </Field>
 
-          <input
-            type="text"
-            name="image"
-            value={form.image}
-            onChange={handleChange}
-            placeholder="Image URL"
-            className="border p-2 rounded-lg outline-none md:col-span-2"
-          />
-
-          <textarea
-            name="description"
-            value={form.description}
-            onChange={handleChange}
-            placeholder="Description"
-            className="border p-2 rounded-lg outline-none md:col-span-2"
-          />
+            <Field orientation="horizontal">
+              <Button className={"bg-indigo-600"} onClick={handleCreateProduct}>
+                Add Product
+              </Button>
+            </Field>
+          </FieldGroup>
 
         </div>
-
-        <button
-          onClick={handleAddProduct}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
-        >
-          Add Product
-        </button>
-      </div>
-
-      {/* Product List */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
-        {products.map((item, index) => (
-          <div
-            key={index}
-            className="bg-white border rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition"
-          >
-
-            <img
-              src={
-                item.image ||
-                "https://via.placeholder.com/300"
-              }
-              alt="product"
-              className="h-40 w-full object-cover"
-            />
-
-            <div className="p-4 space-y-2">
-
-              <h2 className="font-semibold text-lg">
-                {item.name}
-              </h2>
-
-              <p className="text-sm text-gray-500">
-                {item.description}
-              </p>
-
-              <div className="flex justify-between items-center pt-2">
-
-                <span className="text-indigo-600 font-bold">
-                  {item.price}
-                </span>
-
-                <button className="text-red-500 text-sm hover:underline">
-                  Delete
-                </button>
-
-              </div>
-
-            </div>
-          </div>
-        ))}
 
       </div>
     </div>
