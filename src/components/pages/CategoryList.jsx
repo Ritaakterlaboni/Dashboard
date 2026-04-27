@@ -6,7 +6,7 @@ const CategoryList = () => {
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/category/getcategory")
+    axios.get("https://ecommarce-backend-rtkt.onrender.com/api/category/getcategory")
       .then((res) => {
         setCategory(res.data.data);
       });

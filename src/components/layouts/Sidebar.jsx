@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LayoutDashboard,
   FolderKanban,
@@ -13,6 +13,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 
 const Sidebar = () => {
@@ -21,7 +22,6 @@ const Sidebar = () => {
 
   const [catOpen, setCatOpen] = useState(false);
   const [prodOpen, setProdOpen] = useState(false);
-
 
 
   const active = (path) => location.pathname === path;
@@ -33,10 +33,13 @@ const Sidebar = () => {
       <div>
 
         {/* Logo */}
-        <div className="p-6 text-2xl font-bold text-indigo-600">
-          Admin Panel
+
+          <div className="p-6 text-2xl font-bold text-indigo-600">
+            Admin Panel
         </div>
 
+
+        
         <nav className="px-3 space-y-2">
 
           {/* DASHBOARD */}

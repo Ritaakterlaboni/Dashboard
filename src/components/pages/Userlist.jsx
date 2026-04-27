@@ -6,7 +6,7 @@ const UserList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/user/users")
+      .get("https://ecommarce-backend-rtkt.onrender.com/api/user/users")
       .then((res) => {
         setUsers(res.data.data);
       })

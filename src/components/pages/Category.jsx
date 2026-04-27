@@ -20,7 +20,7 @@ const formData ={
 
 const handleCategoryBtn = async()=>{
   try {
-    await axios.post ("http://localhost:3000/api/category/createcategory", formData);
+    await axios.post ("https://ecommarce-backend-rtkt.onrender.com/api/category/createcategory", formData);
     toast.success("Successfully added!");
 
     //input field clear ar jonno

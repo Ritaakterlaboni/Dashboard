@@ -59,7 +59,7 @@ const Product = () => {
   const [getCategory, setGetCategory] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/category/getcategory",)
+    axios.get("https://ecommarce-backend-rtkt.onrender.com/api/category/getcategory",)
       .then((res) => {
         setGetCategory(res.data.data);
         if (res.data.data.length > 0) {

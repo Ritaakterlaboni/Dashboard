@@ -6,7 +6,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/product/getproduct")
+    axios.get("https://ecommarce-backend-rtkt.onrender.com/api/product/getproduct")
       .then((res) => {
         setProducts(res.data.data);
       });
