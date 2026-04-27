@@ -1,26 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Product = () => {
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
-  const[category, setCategory] = useState("")
-  const[price, setPrice] = useState("")
-  const[size, setSize] = useState("")
-  const[color, setColor] = useState("")
-  const[ram, setRam] = useState("")
-  const[storage, setStorage] = useState("")
-  const[image, setImage] = useState("")
+  const [category, setCategory] = useState("")
+  const [price, setPrice] = useState("")
+  const [size, setSize] = useState("")
+  const [color, setColor] = useState("")
+  const [ram, setRam] = useState("")
+  const [storage, setStorage] = useState("")
+  const [image, setImage] = useState("")
 
+
+
+
+  const handleCreateProduct = async () => {
+    const formData = new FormData();
+    formData.append("name", productName)
+    formData.append("description", productDescription)
+    formData.append("category", category)
+    formData.append("price", price)
+    formData.append("size", size)
+    formData.append("color", color)
+    formData.append("ram", ram)
+    formData.append("storage", storage)
+    formData.append("image", image)
+    try {
+      await axios.post("http://localhost:3000/api/product/createproduct", formData)
+
+
+      setProductName("");
+      setProductDescription("");
+      setCategory("")
+      setPrice("")
+      setSize("")
+      setColor("")
+      setRam("")
+      setStorage("")
+      setImage("")
+      setTimeout(() => {
+        navigate("/productlist");
+      }, 1000);
+      toast.success("Successfully added!");
+
+    } catch (error) {
+      toast.error("Product create failed");
+    }
+  };
+
+  //category fetch
   const [getCategory, setGetCategory] = useState([]);
 
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/category/getcategory",)
+      .then((res) => {
+        setGetCategory(res.data.data);
+        if (res.data.data.length > 0) {
+          setSelectedCategory(res.data.data[0].name);
+        }
+      });
 
-  const handleCreateProduct = () => {
-    console.log("Product Added");
-  };
+  }, [])
 
   return (
     <div className="p-6 space-y-6">
@@ -41,9 +88,9 @@ const Product = () => {
             {/* product Name */}
             <Field>
               <FieldLabel>Product Name</FieldLabel>
-              <Input placeholder="Product Name" className="text-sm" 
-              value={productName}   //useState ar productName
-              onChange={(e) => setProductName(e.target.value)}
+              <Input placeholder="Product Name" className="text-sm"
+                value={productName}   //useState ar productName
+                onChange={(e) => setProductName(e.target.value)}
               />
             </Field>
             {/* product  Description*/}
@@ -56,22 +103,22 @@ const Product = () => {
                 onChange={(e) => setProductDescription(e.target.value)}
               />
             </Field>
-             {/* Category*/}
-                <Field>
-            <FieldLabel>Category</FieldLabel>
-            <select
-              className="border border-gray-200 rounded-sm p-2"
-              onChange={(e) => setSelectedCategory(e.target.value)}>
-              {getCategory.map((item) => (
-                <option
-                  className={"dark:bg-blue-900"}
-                  key={item._id}
-                  value={item._id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </Field>
+            {/* Category*/}
+            <Field>
+              <FieldLabel>Category</FieldLabel>
+              <select
+                className="border border-gray-200 rounded-sm p-2"
+                onChange={(e) => setSelectedCategory(e.target.value)}>
+                {getCategory.map((item) => (
+                  <option
+                    className={"dark:bg-blue-900"}
+                    key={item._id}
+                    value={item._id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </Field>
             {/* Price*/}
             <Field>
               <FieldLabel>Price</FieldLabel>
@@ -82,7 +129,7 @@ const Product = () => {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Field>
-             {/* Size*/}
+            {/* Size*/}
             <Field>
               <FieldLabel>Size</FieldLabel>
               <Input
@@ -92,7 +139,7 @@ const Product = () => {
                 onChange={(e) => setSize(e.target.value)}
               />
             </Field>
-             {/* Color*/}
+            {/* Color*/}
             <Field>
               <FieldLabel>Color</FieldLabel>
               <Input
@@ -102,7 +149,7 @@ const Product = () => {
                 onChange={(e) => setColor(e.target.value)}
               />
             </Field>
-             {/* Ram*/}
+            {/* Ram*/}
             <Field>
               <FieldLabel>Ram</FieldLabel>
               <Input
@@ -112,7 +159,7 @@ const Product = () => {
                 onChange={(e) => setRam(e.target.value)}
               />
             </Field>
-               {/* Storage*/}
+            {/* Storage*/}
             <Field>
               <FieldLabel>Storage</FieldLabel>
               <Input
@@ -125,14 +172,14 @@ const Product = () => {
             {/* product  Image*/}
 
             <Field>
-            <FieldLabel>Product Image</FieldLabel>
-            <Input
-              type={"file"}
-              placeholder="Product Image"
-              className={"text-sm"}
-              onChange={(e) => setImage(e.target.files[0])}
-            />
-          </Field>
+              <FieldLabel>Product Image</FieldLabel>
+              <Input
+                type={"file"}
+                placeholder="Product Image"
+                className={"text-sm"}
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </Field>
 
             <Field orientation="horizontal">
               <Button className={"bg-indigo-600"} onClick={handleCreateProduct}>
